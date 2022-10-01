@@ -1,20 +1,17 @@
-const puppeteer = require('puppeteer-extra')
+const puppeteer = require('puppeteer-extra');
 const cheerio = require('cheerio');
 const _ = require('lodash');
 let fs = require('fs');
 
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin());
 
 const getList = async (url) => {
   try {
     const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage()
+    const page = await browser.newPage();
 
     await page.goto(url);
-
-
-
 
     await page.waitForSelector('div#mCSB_1_container > ul.ListSdbr');
 
@@ -61,7 +58,7 @@ const getList = async (url) => {
 const getDate = async (urlItem) => {
   try {
     const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage()
+    const page = await browser.newPage();
 
     await page.goto(urlItem);
 
@@ -112,7 +109,7 @@ const getDate = async (urlItem) => {
   }
 };
 
-(async () => {
+const animeOnBroadcast = async () => {
   const url = 'https://www3.animeflv.net';
 
   console.log(
@@ -154,4 +151,8 @@ const getDate = async (urlItem) => {
   console.log(
     '\n---------------------------------------- finalized ----------------------------------------'
   );
-})();
+
+  return list
+}
+
+module.exports = animeOnBroadcast
