@@ -16,6 +16,8 @@
     "arg": "^5.0.2",
     "cheerio": "^1.0.0-rc.12",
     "lodash": "^4.17.21",
-    "puppeteer": "^15.3.0"
+    "puppeteer": "^15.5.0",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1"
   }
 }

@@ -1,14 +1,20 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra')
 const cheerio = require('cheerio');
 const _ = require('lodash');
 let fs = require('fs');
 
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
+
 const getList = async (url) => {
   try {
-    const browser = await puppeteer.launch({ headless: false });
-    const [page] = await browser.pages();
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage()
 
     await page.goto(url);
+
+
+
 
     await page.waitForSelector('div#mCSB_1_container > ul.ListSdbr');
 
@@ -54,8 +60,8 @@ const getList = async (url) => {
 
 const getDate = async (urlItem) => {
   try {
-    const browser = await puppeteer.launch({ headless: false });
-    const [page] = await browser.pages();
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage()
 
     await page.goto(urlItem);
 
