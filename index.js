@@ -1,11 +1,12 @@
 const puppeteer = require('puppeteer-extra');
 const cheerio = require('cheerio');
 const _ = require('lodash');
-let fs = require('fs');
 
+// ----- puppeteer config
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
+// ----- list of anime on broadcast
 const getList = async (url) => {
   try {
     const browser = await puppeteer.launch({ headless: true });
@@ -28,7 +29,7 @@ const getList = async (url) => {
     $('ul.ListSdbr')
       .find('li > a')
       .each((index, element) => {
-        // ----- get anime name
+        // ----- anime name
 
         const name = $(element)
           .contents()
@@ -37,7 +38,7 @@ const getList = async (url) => {
           })
           .text();
 
-        // ----- get anime url
+        // ----- anime url
 
         const itemUrl = url + $(element).attr('href');
 
@@ -55,6 +56,7 @@ const getList = async (url) => {
   }
 };
 
+// ----- anime date
 const getDate = async (urlItem) => {
   try {
     const browser = await puppeteer.launch({ headless: true });
@@ -94,7 +96,7 @@ const getDate = async (urlItem) => {
     );
     const result = await JSON.parse(findAndClean);
 
-    // ----- get image
+    // ----- get image url
 
     const image = $('div.Image > figure > img').attr('src');
 
@@ -112,14 +114,8 @@ const getDate = async (urlItem) => {
 const animeOnBroadcast = async () => {
   const url = 'https://www3.animeflv.net';
 
-  console.log(
-    '\n---------------------------------------- initialized ----------------------------------------\n'
-  );
-
   // ----- get list of anime on broadcast
   const list = await getList(url);
-
-  if (list) console.log('-list obtained\n');
 
   // ----- list cut by chunk
   const chunkList = _.chunk(list, 5);
@@ -128,8 +124,6 @@ const animeOnBroadcast = async () => {
   for await (const row of chunkList) {
     await Promise.all(
       row.map(async (item) => {
-        console.log('getting date of -', item.name);
-
         const indexItem = list.findIndex((x) => x.name == item.name);
 
         const itemDate = await getDate(item.url);
@@ -140,19 +134,7 @@ const animeOnBroadcast = async () => {
     );
   }
 
-  // save data in data.json
+  return list;
+};
 
-  const writer = fs.createWriteStream('data.json');
-
-  writer.write(JSON.stringify(list));
-
-  console.log('\n-saved data');
-
-  console.log(
-    '\n---------------------------------------- finalized ----------------------------------------'
-  );
-
-  return list
-}
-
-module.exports = animeOnBroadcast
+module.exports = animeOnBroadcast;

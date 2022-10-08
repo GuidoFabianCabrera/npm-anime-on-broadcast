@@ -1,22 +1,22 @@
 {
-  "name": "anime-on-broadcast",
+  "name": "npm-anime-on-broadcast",
   "version": "1.0.0",
-  "description": "",
+  "description": "get anime on broadcast",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./index.js"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuidoFabianCabrera/npm-anime-on-broadcast.git"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.18"
+  "bugs": {
+    "url": "https://github.com/GuidoFabianCabrera/npm-anime-on-broadcast/issues"
   },
+  "homepage": "https://github.com/GuidoFabianCabrera/npm-anime-on-broadcast#readme",
   "dependencies": {
-    "arg": "^5.0.2",
     "cheerio": "^1.0.0-rc.12",
     "lodash": "^4.17.21",
-    "puppeteer": "^15.5.0",
+    "puppeteer": "^18.2.1",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.1"
   }
