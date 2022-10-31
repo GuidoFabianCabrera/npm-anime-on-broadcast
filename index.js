@@ -9,7 +9,10 @@ puppeteer.use(StealthPlugin());
 // ----- list of anime on broadcast
 const getList = async (url) => {
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
 
     await page.goto(url);
@@ -59,7 +62,10 @@ const getList = async (url) => {
 // ----- anime date
 const getDate = async (urlItem) => {
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
 
     await page.goto(urlItem);
